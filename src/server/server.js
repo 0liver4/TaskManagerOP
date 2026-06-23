@@ -5,11 +5,18 @@ import tasks from "../utils/Mock.js";
 const app = express();
 app.use(express.json());
 
+app.set("view engine", "pug");
+app.set("views", "../views");
+
+
 const port = 3000;
 
 /* GET - GET ALL THE TASKS */
 app.get("/api/tasks", (req, res) => {
-    res.json(tasks);
+    
+    res.render('tasks_list', {
+        tasks
+    });
 });
 
 /* POST - CREATE A NEW TASK */

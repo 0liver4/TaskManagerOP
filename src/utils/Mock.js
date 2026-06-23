@@ -2,13 +2,13 @@ let tasks = [
     {
         id: 1,
         title: "Learn Express basics",
-        completed: false,
+        completed: true,
         tier: "basic"
     },
     {
         id: 2,
         title: "Setup development environment",
-        completed: false,
+        completed: true,
         tier: "basic"
     },
     {
@@ -38,7 +38,7 @@ let tasks = [
     {
         id: 7,
         title: "Setup payment gateway",
-        completed: false,
+        completed: true,
         tier: "premium"
     },
     {
@@ -50,7 +50,7 @@ let tasks = [
     {
         id: 9,
         title: "Advanced cloud deployment",
-        completed: false,
+        completed: true,
         tier: "premium"
     },
     {
