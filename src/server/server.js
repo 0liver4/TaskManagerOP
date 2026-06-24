@@ -12,15 +12,29 @@ app.set("views", "../views");
 const port = 3000;
 
 /* GET - GET ALL THE TASKS */
-app.get("/api/tasks", (req, res) => {
-    
-    res.render('tasks_list', {
+app.get("/", (req, res) => {
+    res.render('home');
+});
+
+//RENDER THE TASKS LIST
+app.get("/api/show_tasks", (req, res) => {
+    res.render('tasksList', {
         tasks
     });
 });
 
+app.get("/api/create_task", (req, res) => {
+    
+    const lastTask = tasks.at(tasks.length - 1);
+
+    res.render('setNew', {
+        tasks: lastTask ? [lastTask] : []
+    });
+});
+
+
 /* POST - CREATE A NEW TASK */
-app.post("/api/tasks", (req, res) => {
+app.post("/api/create_tasks", (req, res) => {
     
     const newTask = {
         id: tasks.length + 1,
@@ -35,8 +49,8 @@ app.post("/api/tasks", (req, res) => {
 });
 
 /* PATCH - CHANGES STATE */
-app.patch("/api/tasks/:id", checkPremiumAccess, (req, res) => {
-    const id = parseInt(req.params.id);
+app.patch("/api/task/:id", checkPremiumAccess, (req, res) => {
+    const id = Number.parseInt(req.params.id);
     const task = tasks.find(t => t.id === id);
 
     task.completed = !task.completed;

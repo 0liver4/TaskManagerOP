@@ -1,0 +1,67 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Create Task
+
+    body
+        h1 Create a new Task
+        a(href="/api/show_tasks") Back to Home
+        br
+        br
+        
+        form(id="taskForm")
+            div
+                label Title:
+                input(type="text" name="title" required)
+
+            div
+                label Tier:
+                select(name="tier")
+                    option(value="basic") Basic
+                    option(value="premium") Premium
+
+            button(type="submit") Create Task
+
+            br
+
+        h3 This is the last task created
+
+        ul
+            each task in tasks
+                li= task.title
+                li= task.tier
+                li= task.completed ? "COMPLETED" : "NOT COMPLETED"
+
+        script.
+            document.getElementById("taskForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(e.target);
+
+                const data = {
+                    title: formData.get("title"),
+                    tier: formData.get("tier")
+                };
+
+                try {
+                    const response = await fetch("/api/create_tasks", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    console.log(result);
+
+                    setTimeout(() => {
+                    location.reload();
+                    }, 500);
+
+                } catch (error) {
+                    console.log(error);
+                }
+            });

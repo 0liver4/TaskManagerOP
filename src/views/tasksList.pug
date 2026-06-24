@@ -1,0 +1,49 @@
+
+head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Tasks List 
+
+    a(href="/") home
+    br
+    h1 This are all the Tasks
+    ul
+        each task, i in tasks
+            h3= "Task number #" + task.id
+            li= task.title
+            li= task.tier
+
+            if task.completed
+                li IS COMPLETED
+            else
+                li IS NOT COMPLETED
+
+            button(onclick=`changeTask(${task.id})`)
+                    | Change Status
+
+script.
+    async function changeTask(id){
+        try{
+
+        const response = await fetch(`/api/task/${id}`, {
+            method: "PATCH",
+            headers:{
+                "Content-Type": "application/json",
+                "x-user-role": "admin",
+            }
+        });
+
+        const data = await response.json();
+        
+        console.log(data);
+
+            setTimeout(() => {
+            location.reload();
+            }, 500);
+
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
