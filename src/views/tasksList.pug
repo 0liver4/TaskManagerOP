@@ -4,9 +4,10 @@ head
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Tasks List 
 
-    a(href="/") home
-    br
+body
+    
     h1 This are all the Tasks
+    a(href="/") Back to Home
     ul
         each task, i in tasks
             h3= "Task number #" + task.id
